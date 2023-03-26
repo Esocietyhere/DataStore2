@@ -1,6 +1,6 @@
 [package]
 name = "esocietyhere/datastore2"
-description = "A wally package of Kampfkarren's DataStore2"
+description = "A wally package of Kampfkarren's Datastore2"
 authors = ["Kampfkarren"]
 license = "https://raw.githubusercontent.com/Kampfkarren/Roblox/master/LICENSE"
 version = "1.4.1"
