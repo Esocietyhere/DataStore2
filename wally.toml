@@ -1,0 +1,10 @@
+[package]
+name = "esocietyhere/datastore2"
+description = "A wally package of Kampfkarren's Datastore2"
+authors = ["Kampfkarren"]
+license = "https://raw.githubusercontent.com/Kampfkarren/Roblox/master/LICENSE"
+version = "1.4.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
