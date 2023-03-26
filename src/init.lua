@@ -63,16 +63,19 @@ function DataStore:_GetRaw()
 		return self.getRawPromise
 	end
 
-	self.getRawPromise = self.savingMethod:Get():andThen(function(value)
-		self.value = value
-		self:Debug("value received")
-		self.haveValue = true
-		self.getting = false
-	end):catch(function(reason)
-		self.getting = false
-		self.getRawPromise = nil
-		return Promise.reject(reason)
-	end)
+	self.getRawPromise = self.savingMethod
+		:Get()
+		:andThen(function(value)
+			self.value = value
+			self:Debug("value received")
+			self.haveValue = true
+			self.getting = false
+		end)
+		:catch(function(reason)
+			self.getting = false
+			self.getRawPromise = nil
+			return Promise.reject(reason)
+		end)
 
 	return self.getRawPromise
 end
@@ -405,7 +408,7 @@ do
 
 	function CombinedDataStore:OnUpdate(callback)
 		if not self.onUpdateCallbacks then
-			self.onUpdateCallbacks = {callback}
+			self.onUpdateCallbacks = { callback }
 		else
 			table.insert(self.onUpdateCallbacks, callback)
 		end
@@ -452,7 +455,7 @@ local combinedDataStoreInfo = {}
 	</parameter>
 **--]]
 function DataStore2.Combine(mainKey, ...)
-	for _, name in ipairs({...}) do
+	for _, name in ipairs({ ... }) do
 		combinedDataStoreInfo[name] = mainKey
 	end
 end
@@ -484,8 +487,7 @@ end
 function DataStore2.__call(_, dataStoreName, player)
 	assert(
 		typeof(dataStoreName) == "string" and IsPlayer.Check(player),
-		("DataStore2() API call expected {string dataStoreName, Player player}, got {%s, %s}")
-		:format(
+		("DataStore2() API call expected {string dataStoreName, Player player}, got {%s, %s}"):format(
 			typeof(dataStoreName),
 			typeof(player)
 		)
@@ -568,7 +570,7 @@ function DataStore2.__call(_, dataStoreName, player)
 			if bindToCloseCallback == nil then
 				return
 			end
-	
+
 			bindToCloseCallback()
 		end)
 	end)
@@ -582,18 +584,22 @@ function DataStore2.__call(_, dataStoreName, player)
 			return not player:IsDescendantOf(game)
 		end),
 	}):andThen(function()
-		dataStore:SaveAsync():andThen(function()
-			print("player left, saved", dataStoreName)
-		end):catch(function(error)
-			-- TODO: Something more elegant
-			warn("error when player left!", error)
-		end):finally(function()
-			isSaveFinished = true
-			saveFinishedEvent:Fire()
-		end)
+		dataStore
+			:SaveAsync()
+			:andThen(function()
+				print("player left, saved", dataStoreName)
+			end)
+			:catch(function(error)
+				-- TODO: Something more elegant
+				warn("error when player left!", error)
+			end)
+			:finally(function()
+				isSaveFinished = true
+				saveFinishedEvent:Fire()
+			end)
 
 		--Give a long delay for people who haven't figured out the cache :^(
-		return Promise.delay(40):andThen(function() 
+		return Promise.delay(40):andThen(function()
 			DataStoreCache[player] = nil
 			bindToCloseCallback = nil
 		end)

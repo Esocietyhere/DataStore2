@@ -11,5 +11,5 @@ return {
 		BeforeSaveError = symbol("BeforeSaveError"),
 		DataStoreFailure = symbol("DataStoreFailure"),
 		InvalidData = symbol("InvalidData"),
-	}
+	},
 }
