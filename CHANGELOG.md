@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.4.1]
-- Formatted code
+- Formatted and linted code
 - Updated to aftman
 
 ## [1.4.0]

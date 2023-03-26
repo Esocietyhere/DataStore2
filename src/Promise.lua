@@ -129,7 +129,7 @@ local function packResult(success, ...)
 end
 
 local function makeErrorHandler(traceback)
-	assert(traceback ~= nil)
+	assert(traceback ~= nil, "traceback must not be nil")
 
 	return function(err)
 		-- If the error object is already a table, forward it directly.
@@ -1317,7 +1317,7 @@ function Promise.fromEvent(event, predicate)
 		return true
 	end
 
-	return Promise._new(debug.traceback(nil, 2), function(resolve, reject, onCancel)
+	return Promise._new(debug.traceback(nil, 2), function(resolve, _, onCancel)
 		local connection
 		local shouldDisconnect = false
 
