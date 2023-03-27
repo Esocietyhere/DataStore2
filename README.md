@@ -1,2 +1,3 @@
-# Datastore2
-A wally package of Kampfkarren's Datastore2
+# DataStore2
+
+A wally package of Kampfkarren's DataStore2
